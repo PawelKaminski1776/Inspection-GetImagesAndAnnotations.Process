@@ -5,20 +5,20 @@ using InspectionGetImagesAndAnnotations.Controllers.DtoFactory;
 namespace InspectionGetImagesAndAnnotations.Controllers
 {
     [ApiController]
-    [Route("Api/Controllers")]
-    public class MyController : BaseController
+    [Route("Api/GetImagesAndAnnotations")]
+    public class InspectionController : BaseController
     {
-        public MyController(IMessageSession messageSession, IDtoFactory dtoFactory)
+        public InspectionController(IMessageSession messageSession, IDtoFactory dtoFactory)
             : base(messageSession, dtoFactory) { }
 
-        [HttpPost("Message")]
-        public async Task<IActionResult> AddAccount([FromBody] MessageRequest dto)
+        [HttpPost("GetAnnotations")]
+        public async Task<IActionResult> GetAnnotations([FromBody] InspectionRequest dto)
         {
-            var loginDto = (MessageRequest)_dtoFactory.UseDto("messagedto", dto);
+            var Dto = (InspectionRequest)_dtoFactory.UseDto("inspectiondto", dto);
 
             try
             {
-                var response = await _messageSession.Request<MessageResponse>(loginDto);
+                var response = await _messageSession.Request<InspectionResponse>(Dto);
                 return Ok(response);
             }
             catch (Exception ex)

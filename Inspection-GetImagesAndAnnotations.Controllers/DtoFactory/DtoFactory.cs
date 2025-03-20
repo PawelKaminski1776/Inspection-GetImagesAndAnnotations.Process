@@ -13,13 +13,15 @@ public class DtoFactory : IDtoFactory
         switch (dtoType.ToLower())
         {
         
-            case "messagedto":
-                if (args.Length < 2 || !(args[0] is string))
+            case "inspectiondto":
+                if (args.Length < 2 || !(args[0] is int) || !(args[1] is string) || !(args[2] is string))
                     throw new ArgumentException("Invalid arguments for messageRequest.");
 
-                return new MessageRequest
+                return new InspectionRequest
                 {
-                    Message = (string)args[0]
+                    numOfImages = (int)args[0],
+                    county = (string)args[1],
+                    website = (string)args[2]
                 };
 
             default:
@@ -34,7 +36,7 @@ public class DtoFactory : IDtoFactory
 
         switch (dtoType.ToLower())
         {
-            case "messagedto":
+            case "inspectiondto":
                 return dto;
             default:
                 throw new ArgumentException($"Invalid DTO type: {dtoType}");

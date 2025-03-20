@@ -2,14 +2,26 @@ using NServiceBus;
 
 namespace InspectionGetImagesAndAnnotations.Messages.Dtos
 {
-    public class MessageRequest : IMessage
+    public class InspectionRequest : IMessage
     {
-        public string Message { get; set; }
+        public int numOfImages { get; set; }
+        public string county { get; set; }
+        public string model_dir { get; set; }
+        public string website { get; set; }
+        public string inspection { get; set; }
+
     }
 
-    public class MessageResponse : IMessage
+
+    public class InspectionResponse : IMessage
     {
-        public string Message { get; set; }
+        public InspectionImageAndAnnotations[] data { get; set; }
+    }
+
+    public class InspectionImageAndAnnotations
+    {
+        public IFormFile? image { get; set; }
+        public string annotations { get; set; }
     }
 
 }

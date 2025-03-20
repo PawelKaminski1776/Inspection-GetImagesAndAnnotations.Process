@@ -6,6 +6,7 @@ using InspectionGetImagesAndAnnotations.Controllers.DtoFactory;
 using InspectionGetImagesAndAnnotations.Process;
 using InspectionGetImagesAndAnnotations.Channel.Services;
 using InspectionGetImagesAndAnnotations.Messages.Dtos;
+using InspectionGetImagesAndAnnotations.Channel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +19,8 @@ if (builder.Environment.IsDevelopment())
 {
     builder.WebHost.ConfigureKestrel(options =>
     {
-        options.ListenAnyIP(5003);
-        options.ListenAnyIP(5004, listenOptions =>
+        options.ListenAnyIP(5011);
+        options.ListenAnyIP(5012, listenOptions =>
         {
             listenOptions.UseHttps();
         });
@@ -29,7 +30,7 @@ else
 {
     builder.WebHost.ConfigureKestrel(options =>
     {
-        options.ListenAnyIP(5003);
+        options.ListenAnyIP(5011);
     });
 }
 
@@ -39,7 +40,15 @@ builder.Services.AddScoped<MongoConnect>(provider =>
     return new MongoConnect(connectionString);
 });
 
-builder.Services.AddScoped<MyHandler>();
+builder.Services.AddScoped<PythonAPI>(provider =>
+{
+    var pythonApi = appConfig.GetSetting("PythonAPI");
+    var username = appConfig.GetSetting("Username");
+    var password = appConfig.GetSetting("Password");
+    return new PythonAPI(pythonApi, username, password);
+});
+
+builder.Services.AddScoped<InspectionHandler>();
 
 
 builder.Services.AddControllers();
@@ -56,6 +65,12 @@ builder.Services.AddCors(options =>
 });
 
 var endpointConfiguration = new EndpointConfiguration("NServiceBusHandlers");
+// Disable Immediate Retries
+var recoverability = endpointConfiguration.Recoverability();
+recoverability.Immediate(immediate => immediate.NumberOfRetries(0));
+
+// Disable Delayed Retries
+recoverability.Delayed(delayed => delayed.NumberOfRetries(0));
 string instanceId = Environment.MachineName;
 endpointConfiguration.MakeInstanceUniquelyAddressable(instanceId);
 endpointConfiguration.EnableCallbacks();
@@ -79,7 +94,7 @@ transport.StorageDirectory("/app/.learningtransport");
 var persistence = endpointConfiguration.UsePersistence<LearningPersistence>();
 
 var routing = transport.Routing();
-routing.RouteToEndpoint(typeof(MessageRequest), "NServiceBusHandlers");
+routing.RouteToEndpoint(typeof(InspectionRequest), "NServiceBusHandlers");
 
 var scanner = endpointConfiguration.AssemblyScanner().ScanFileSystemAssemblies = true;
 
