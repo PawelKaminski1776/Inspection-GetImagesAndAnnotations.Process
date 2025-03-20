@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -18,8 +18,8 @@
   </ItemGroup>
 	<ItemGroup>
 
-	    <ProjectReference Include="..\Inspection-Template.Channel\Inspection-Template.Channel.csproj" />
-	    <ProjectReference Include="..\Inspection-Template.Messages\Inspection-Template.Messages.csproj" />
+	    <ProjectReference Include="..\Inspection-GetImagesAndAnnotations.Channel\Inspection-GetImagesAndAnnotations.Channel.csproj" />
+	    <ProjectReference Include="..\Inspection-GetImagesAndAnnotations.Messages\Inspection-GetImagesAndAnnotations.Messages.csproj" />
 	
 	</ItemGroup>
 </Project>

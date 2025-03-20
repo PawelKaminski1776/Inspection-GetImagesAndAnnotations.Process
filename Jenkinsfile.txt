@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         CI = "true"
-        DOCKER_IMAGE = "template-service"
-        CONTAINER_NAME = "template-container"
+        DOCKER_IMAGE = "getimagesandannotations-service"
+        CONTAINER_NAME = "getimagesandannotations-container"
 		GITHUB_TOKEN = credentials('github-api-token')
     }
 
@@ -14,7 +14,7 @@ pipeline {
                 checkout scm: [
                     $class: 'GitSCM', 
                     branches: [[name: '*/main']],
-                    userRemoteConfigs: [[url: 'https://github.com/PawelKaminski1776/Inspection-Template.git',
+                    userRemoteConfigs: [[url: 'https://github.com/PawelKaminski1776/Inspection-GetImagesAndAnnotations.Process.git',
 					credentialsId: 'github-api-token']]
                 ]
             }
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -f Inspection-template.dockerfile -t ${DOCKER_IMAGE} ."
+                bat "docker build -f Inspection-GetImagesAndAnnotations.dockerfile -t ${DOCKER_IMAGE} ."
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
                 bat """
                     docker stop ${CONTAINER_NAME} || true
                     docker rm ${CONTAINER_NAME} || true
-                    docker run -d -p 5000:5000 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}
+                    docker run -d -p 5011:5011 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}
                 """
             }
         }

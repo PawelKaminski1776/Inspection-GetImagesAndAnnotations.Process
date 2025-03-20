@@ -1,8 +1,8 @@
-﻿using System;
-using InspectionTemplate.Messages;
-using InspectionTemplate.Messages.Dtos;
+using System;
+using InspectionGetImagesAndAnnotations.Messages;
+using InspectionGetImagesAndAnnotations.Messages.Dtos;
 
-namespace InspectionTemplate.Controllers.DtoFactory;
+namespace InspectionGetImagesAndAnnotations.Controllers.DtoFactory;
 public class DtoFactory : IDtoFactory
 {
     public object CreateDto(string dtoType, params object[] args)

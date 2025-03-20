@@ -1,11 +1,11 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
 using System.Globalization;
-using InspectionTemplate.Handlers;
-using InspectionTemplate.Controllers.DtoFactory;
-using InspectionTemplate.Process;
-using InspectionTemplate.Channel.Services;
-using InspectionTemplate.Messages.Dtos;
+using InspectionGetImagesAndAnnotations.Handlers;
+using InspectionGetImagesAndAnnotations.Controllers.DtoFactory;
+using InspectionGetImagesAndAnnotations.Process;
+using InspectionGetImagesAndAnnotations.Channel.Services;
+using InspectionGetImagesAndAnnotations.Messages.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 

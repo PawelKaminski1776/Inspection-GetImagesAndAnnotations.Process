@@ -1,4 +1,4 @@
-﻿namespace InspectionTemplate.Process
+namespace InspectionGetImagesAndAnnotations.Process
 {
     public class LoggingMiddleware
     {
