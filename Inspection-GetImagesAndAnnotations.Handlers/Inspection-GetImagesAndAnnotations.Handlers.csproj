@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="NServiceBus" Version="9.2.2" />
     <PackageReference Include="NServiceBus.Callbacks" Version="5.0.1" />
+    <PackageReference Include="NServiceBus.ClaimCheck" Version="1.0.1" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.3.0.106239">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

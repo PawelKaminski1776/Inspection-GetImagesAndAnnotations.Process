@@ -7,6 +7,8 @@ using InspectionGetImagesAndAnnotations.Process;
 using InspectionGetImagesAndAnnotations.Channel.Services;
 using InspectionGetImagesAndAnnotations.Messages.Dtos;
 using InspectionGetImagesAndAnnotations.Channel;
+using NServiceBus;
+using NServiceBus.ClaimCheck;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,6 +67,7 @@ builder.Services.AddCors(options =>
 });
 
 var endpointConfiguration = new EndpointConfiguration("NServiceBusHandlers");
+
 // Disable Immediate Retries
 var recoverability = endpointConfiguration.Recoverability();
 recoverability.Immediate(immediate => immediate.NumberOfRetries(0));
@@ -91,6 +94,8 @@ serialization.Settings(settings);
 
 var transport = endpointConfiguration.UseTransport<LearningTransport>();
 transport.StorageDirectory("/app/.learningtransport");
+var claimCheck = endpointConfiguration.UseClaimCheck<FileShareClaimCheck, SystemJsonClaimCheckSerializer>();
+claimCheck.BasePath(@"D:\temp\databus");
 var persistence = endpointConfiguration.UsePersistence<LearningPersistence>();
 
 var routing = transport.Routing();

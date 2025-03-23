@@ -29,10 +29,15 @@ namespace InspectionGetImagesAndAnnotations.Channel
                 var json = JsonSerializer.Serialize(request);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
+                // Add Basic Authentication header
+                var byteArray = Encoding.ASCII.GetBytes($"{_username}:{_password}");
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+
                 HttpResponseMessage response = await _client.PostAsync(Url + url, content);
                 response.EnsureSuccessStatusCode();
 
                 string responseBody = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseBody);
                 return responseBody;
             }
             catch (Exception ex)

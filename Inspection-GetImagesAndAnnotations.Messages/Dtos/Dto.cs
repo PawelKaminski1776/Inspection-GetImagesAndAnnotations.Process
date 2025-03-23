@@ -15,13 +15,20 @@ namespace InspectionGetImagesAndAnnotations.Messages.Dtos
 
     public class InspectionResponse : IMessage
     {
-        public InspectionImageAndAnnotations[] data { get; set; }
+        public List<ImageAnnotationDto> data { get; set; } = new();
     }
 
-    public class InspectionImageAndAnnotations
+    public class ImageAnnotationDto
     {
-        public IFormFile? image { get; set; }
-        public string annotations { get; set; }
+        public Dictionary<string, List<AnnotationDto>> annotations { get; set; } = new();
+        public string image { get; set; }
+    }
+
+    public class AnnotationDto
+    {
+        public List<double> bounding_box { get; set; } = new();
+        public string class_name { get; set; }
+        public double score { get; set; }
     }
 
 }

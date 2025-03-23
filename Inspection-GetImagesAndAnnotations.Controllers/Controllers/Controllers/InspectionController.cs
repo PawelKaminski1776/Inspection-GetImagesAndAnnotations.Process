@@ -26,6 +26,43 @@ namespace InspectionGetImagesAndAnnotations.Controllers
                 return StatusCode(500, $"Internal server error while processing the request: {ex.Message}");
             }
         }
+
+        private const string StoragePath = @"D:\temp\databus"; // Change to your configured CheckClaims path
+
+        [HttpGet("{fileName}")]
+        public IActionResult GetImage(string fileName)
+        
+        {
+            var filePath = Path.Combine(StoragePath, fileName);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("Image not found.");
+            }
+            
+            string contentType = GetContentType(filePath);
+            var imageBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(imageBytes, contentType);
+        }
+
+       private string GetContentType(string filePath)
+       {
+        var extension = Path.GetExtension(filePath).ToLower();
+
+            return extension switch
+                {
+                    ".jpg" or ".jpeg" => "image/jpeg",
+                    ".png" => "image/png",
+                    ".gif" => "image/gif",
+                    ".bmp" => "image/bmp",
+                    ".webp" => "image/webp",
+                    ".svg" => "image/svg+xml",
+                    ".tiff" or ".tif" => "image/tiff",
+                    ".ico" => "image/x-icon",
+                    _ => "application/octet-stream"
+                };
+        }
     }
+    
 
 }

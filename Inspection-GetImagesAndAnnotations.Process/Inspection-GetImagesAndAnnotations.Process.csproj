@@ -11,6 +11,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NServiceBus" Version="9.2.2" />
     <PackageReference Include="NServiceBus.Callbacks" Version="5.0.1" />
+    <PackageReference Include="NServiceBus.ClaimCheck" Version="1.0.1" />
     <PackageReference Include="NServiceBus.Extensions.Hosting" Version="3.0.0" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="4.0.0" />
     <PackageReference Include="NServiceBus.Transport.AzureServiceBus" Version="4.2.0" />
