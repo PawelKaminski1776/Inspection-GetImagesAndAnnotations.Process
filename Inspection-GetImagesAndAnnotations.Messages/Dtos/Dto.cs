@@ -22,6 +22,8 @@ namespace InspectionGetImagesAndAnnotations.Messages.Dtos
     {
         public Dictionary<string, List<AnnotationDto>> annotations { get; set; } = new();
         public string image { get; set; }
+
+        public string image_name { get; set; }
     }
 
     public class AnnotationDto

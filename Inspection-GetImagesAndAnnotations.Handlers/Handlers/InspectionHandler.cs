@@ -41,7 +41,7 @@ namespace InspectionGetImagesAndAnnotations.Handlers
                         {
                             // Generate a unique file name while keeping original extension
                             string fileExtension = GetFileExtensionFromBase64(imageAnnotation.image);
-                            string fileName = $"{Guid.NewGuid()}{fileExtension}";
+                            string fileName = $"{imageAnnotation.image_name}{fileExtension}";
                             string filePath = Path.Combine(StoragePath, fileName);
 
                             // Convert Base64 to bytes and save it
@@ -57,6 +57,9 @@ namespace InspectionGetImagesAndAnnotations.Handlers
                         }
                     }
                 }
+
+                Console.WriteLine(JsonSerializer.Serialize<InspectionResponse>(response));
+
 
                 // Send updated response (now contains file names instead of large images)
                 await context.Reply(response);

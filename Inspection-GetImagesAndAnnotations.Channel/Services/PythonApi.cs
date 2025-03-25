@@ -37,7 +37,6 @@ namespace InspectionGetImagesAndAnnotations.Channel
                 response.EnsureSuccessStatusCode();
 
                 string responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseBody);
                 return responseBody;
             }
             catch (Exception ex)
