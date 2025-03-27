@@ -41,7 +41,7 @@ namespace InspectionGetImagesAndAnnotations.Handlers
                         {
                             // Generate a unique file name while keeping original extension
                             string fileExtension = GetFileExtensionFromBase64(imageAnnotation.image);
-                            string fileName = $"{imageAnnotation.image_name}{fileExtension}";
+                            string fileName = $"{imageAnnotation.image_name}";
                             string filePath = Path.Combine(StoragePath, fileName);
 
                             // Convert Base64 to bytes and save it
