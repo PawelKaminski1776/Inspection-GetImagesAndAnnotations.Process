@@ -27,7 +27,7 @@ namespace InspectionGetImagesAndAnnotations.Controllers
             }
         }
 
-        private const string StoragePath = @"D:\temp\databus"; // Change to your configured CheckClaims path
+        private string StoragePath = $"{Directory.GetCurrentDirectory()}temp/databus"; // Change to your configured CheckClaims path
 
         [HttpGet("{fileName}")]
         public IActionResult GetImage(string fileName)

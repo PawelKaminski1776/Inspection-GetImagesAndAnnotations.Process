@@ -7,7 +7,7 @@ namespace InspectionGetImagesAndAnnotations.Handlers
     public class InspectionHandler : IHandleMessages<InspectionRequest>
     {
         private readonly PythonAPI _pythonAPI;
-        private const string StoragePath = @"D:\temp\databus";
+        private string StoragePath = $"{Directory.GetCurrentDirectory()}temp/databus";
         public InspectionHandler(PythonAPI pythonAPI)
         {
             this._pythonAPI = pythonAPI;
