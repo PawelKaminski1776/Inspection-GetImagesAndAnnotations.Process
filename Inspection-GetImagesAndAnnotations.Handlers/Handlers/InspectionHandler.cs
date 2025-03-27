@@ -32,6 +32,16 @@ namespace InspectionGetImagesAndAnnotations.Handlers
                     return;
                 }
 
+                if (Directory.Exists(StoragePath))
+                {
+                    Directory.Delete(StoragePath, true);
+                }
+
+                if (!Directory.Exists(StoragePath))
+                {
+                    Directory.CreateDirectory(StoragePath);
+                }
+
                 // Process each image annotation
                 foreach (var imageAnnotation in response.data)
                 {
