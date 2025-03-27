@@ -95,7 +95,7 @@ serialization.Settings(settings);
 var transport = endpointConfiguration.UseTransport<LearningTransport>();
 transport.StorageDirectory("/app/.learningtransport");
 var claimCheck = endpointConfiguration.UseClaimCheck<FileShareClaimCheck, SystemJsonClaimCheckSerializer>();
-claimCheck.BasePath(@"D:\temp\databus");
+claimCheck.BasePath($"{Directory.GetCurrentDirectory()}temp/databus");
 var persistence = endpointConfiguration.UsePersistence<LearningPersistence>();
 
 var routing = transport.Routing();
