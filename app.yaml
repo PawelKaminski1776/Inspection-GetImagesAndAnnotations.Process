@@ -1,7 +1,8 @@
 runtime: aspnetcore
 env: flex
-
 service: default
+runtime_version: "8" # Specify .NET 8
+operating_system: "ubuntu22" #specify the operating system.
 
 instance_class: F2
 
@@ -18,6 +19,3 @@ env_variables:
 handlers:
 - url: /.*
   script: auto
-
-runtime_version: "8" # Specify .NET 8
-operating_system: "ubuntu22" #specify the operating system.
