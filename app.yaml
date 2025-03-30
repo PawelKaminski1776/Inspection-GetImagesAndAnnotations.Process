@@ -1,6 +1,5 @@
 runtime: custom
 env: flex
-dockerfile: ./Inspection-GetImagesAndAnnotations.dockerfile
 service: default
 
 runtime_config:
