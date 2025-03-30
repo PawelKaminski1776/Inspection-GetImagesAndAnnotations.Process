@@ -1,9 +1,9 @@
 runtime: aspnetcore
 env: flex
 
-service: default  # Change this if you want to deploy a specific service name
+service: default
 
-instance_class: F2  # Adjust based on your resource needs
+instance_class: F2
 
 automatic_scaling:
   min_num_instances: 1
@@ -18,3 +18,6 @@ env_variables:
 handlers:
 - url: /.*
   script: auto
+
+runtime_version: "8" # Specify .NET 8
+operating_system: "ubuntu22" #specify the operating system.
