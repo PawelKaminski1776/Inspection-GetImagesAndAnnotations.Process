@@ -16,7 +16,6 @@ automatic_scaling:
 
 env_variables:
   ASPNETCORE_URLS: "http://*:5011"
-  GOOGLE_CLOUD_PROJECT: "hardy-pattern-451415-b8"
 
 handlers:
 - url: /.*
