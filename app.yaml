@@ -1,3 +1,4 @@
+service: getimagesandannotations
 runtime: custom
 env: flex
 service: default

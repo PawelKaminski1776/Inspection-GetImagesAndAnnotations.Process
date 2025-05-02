@@ -17,25 +17,6 @@ builder.Services.AddSingleton<IDtoFactory, DtoFactory>();
 
 var appConfig = AppConfiguration.Instance;
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.WebHost.ConfigureKestrel(options =>
-    {
-        options.ListenAnyIP(5011);
-        options.ListenAnyIP(5012, listenOptions =>
-        {
-            listenOptions.UseHttps();
-        });
-    });
-}
-else
-{
-    builder.WebHost.ConfigureKestrel(options =>
-    {
-        options.ListenAnyIP(5011);
-    });
-}
-
 builder.Services.AddScoped<MongoConnect>(provider =>
 {
     var connectionString = appConfig.GetSetting("ConnectionStrings:DefaultConnection");
@@ -92,11 +73,33 @@ var settings = new JsonSerializerSettings
 var serialization = endpointConfiguration.UseSerialization<NewtonsoftJsonSerializer>();
 serialization.Settings(settings);
 
-var transport = endpointConfiguration.UseTransport<LearningTransport>();
-transport.StorageDirectory("/app/.learningtransport");
+
 var claimCheck = endpointConfiguration.UseClaimCheck<FileShareClaimCheck, SystemJsonClaimCheckSerializer>();
 claimCheck.BasePath($"{Directory.GetCurrentDirectory()}temp/databus");
+var transport = endpointConfiguration.UseTransport<LearningTransport>();
 var persistence = endpointConfiguration.UsePersistence<LearningPersistence>();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(5011);
+        options.ListenAnyIP(5012, listenOptions =>
+        {
+            listenOptions.UseHttps();
+        });
+        transport.StorageDirectory("/app/.learningtransport");
+    });
+}
+else
+{
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(5011);
+    });
+    transport.StorageDirectory("/home/ubuntu/storage");
+
+}
 
 var routing = transport.Routing();
 routing.RouteToEndpoint(typeof(InspectionRequest), "NServiceBusHandlers");

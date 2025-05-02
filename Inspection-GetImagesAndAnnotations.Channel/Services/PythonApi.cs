@@ -33,6 +33,8 @@ namespace InspectionGetImagesAndAnnotations.Channel
                 var byteArray = Encoding.ASCII.GetBytes($"{_username}:{_password}");
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 
+                // Application Needs refactoring for this
+                _client.Timeout = TimeSpan.FromMinutes(15);
                 HttpResponseMessage response = await _client.PostAsync(Url + url, content);
                 response.EnsureSuccessStatusCode();
 
